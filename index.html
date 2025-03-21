@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage Profiles</title>
+    <style>
+        /* General Page Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        /* Form Styles */
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        /* Profile Cards */
+        .profiles-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .profile {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 15px;
+            text-align: left;
+        }
+
+        .profile pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+
+            .profile {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Filter Profiles</h2>
+    <form method="post">
+        <label>Min Age:</label>
+        <input type="number" name="min_age" value="{{ min_age }}" required>
+        
+        <label>Max Age:</label>
+        <input type="number" name="max_age" value="{{ max_age }}" required>
+
+        <label>Min Height (e.g. 5.2):</label>
+        <input type="number" step="0.1" name="min_height" value="{{ min_height }}" required>
+
+        <label>Max Height (e.g. 6.5):</label>
+        <input type="number" step="0.1" name="max_height" value="{{ max_height }}" required>
+
+        <label>Marital Status:</label>
+        <select name="marital_status">
+            <option value="All" {% if selected_marital_status == 'All' %} selected {% endif %}>All</option>
+            {% for status in marital_status_options %}
+                <option value="{{ status }}" {% if selected_marital_status == status %} selected {% endif %}>{{ status }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Cast:</label>
+        <select name="cast">
+            <option value="All" {% if selected_cast == 'All' %} selected {% endif %}>All</option>
+            {% for cast in cast_options %}
+                <option value="{{ cast }}" {% if selected_cast == cast %} selected {% endif %}>{{ cast }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Gender:</label>
+        <select name="gender">
+            <option value="All" {% if selected_gender == 'All' %} selected {% endif %}>All</option>
+            {% for gender in gender_options %}
+                <option value="{{ gender }}" {% if selected_gender == gender %} selected {% endif %}>{{ gender }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <h2>Showing {{ profiles|length }} Profiles</h2>  <!-- Single heading below filter button -->
+
+    <div class="profiles-container">
+        {% if profiles %}
+            {% for profile in profiles %}
+                <div class="profile">
+                    <pre>{{ profile.Details }}</pre>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No profiles found.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
