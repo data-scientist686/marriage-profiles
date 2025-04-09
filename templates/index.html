@@ -289,17 +289,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="min_height">Minimum Height (feet)</label>
-                    <input type="number" step="0.01" id="min_height" name="min_height" value="{{ min_height }}" min="4.0" max="7.0" required>
-                    <div class="note">Example: 5.08 for 5'1", 5.10 for 5'10"</div>
+                    <label for="min_height">Minimum Height</label>
+                    <input type="text" id="min_height" name="min_height" value="{{ min_height }}" 
+                           pattern="[0-9]+(\.[0-9]{1,2})?" 
+                           title="Enter height as feet.inches (e.g., 5.10 for 5'10" or 5.8 for 5'8")"
+                           required>
+                    <div class="note">Format: feet.inches (5.10 = 5'10", 5.8 = 5'8")</div>
                 </div>
-
+                
                 <div class="form-group">
-                    <label for="max_height">Maximum Height (feet)</label>
-                    <input type="number" step="0.01" id="max_height" name="max_height" value="{{ max_height }}" min="4.0" max="7.0" required>
-                    <div class="note">Example: 6.0 for 6'0", 6.08 for 6'1"</div>
+                    <label for="max_height">Maximum Height</label>
+                    <input type="text" id="max_height" name="max_height" value="{{ max_height }}"
+                           pattern="[0-9]+(\.[0-9]{1,2})?"
+                           title="Enter height as feet.inches (e.g., 6.2 for 6'2" or 6.0 for 6'0")"
+                           required>
+                    <div class="note">Format: feet.inches (6.2 = 6'2", 6.0 = 6'0")</div>
                 </div>
-
                 <button type="submit" class="btn">Search Profiles</button>
             </form>
         </section>
